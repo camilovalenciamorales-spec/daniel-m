@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Profesional - Asistente Administrativo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES Y CONFIGURACIÓN BASE --- */
+        :root {
+            --primary: #1e3a8a;       /* Azul Corporativo Oscuro */
+            --primary-light: #3b82f6; /* Azul Brillante */
+            --secondary: #64748b;     /* Gris Azulado */
+            --background: #f8fafc;    /* Fondo Claro */
+            --surface: #ffffff;       /* Fondo de Tarjetas */
+            --text-main: #0f172a;     /* Texto Principal */
+            --text-muted: #475569;    /* Texto Secundario */
+            --border: #e2e8f0;        /* Bordes */
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- COMPONENTES REUTILIZABLES --- */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-light);
+            margin: 0.75rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- EFECTO REVEAL (SCROLL) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAV BAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-light);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Placeholder Elegante de Foto */
+        .hero-avatar-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-placeholder {
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forma orgánica moderna */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 5.5rem;
+            font-weight: 700;
+            box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.25);
+            animation: morph 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
+        /* --- HABILIDADES --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-light);
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #eff6ff;
+            color: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Barras de Progreso */
+        .progress-bar-container {
+            background-color: var(--border);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-light);
+            border-radius: 3px;
+            width: 0; /* Animado vía JS */
+            transition: width 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        .skill-percentage {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* --- FORMACIÓN ACADÉMICA (LÍNEA DE TIEMPO) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 20px;
+            top: 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--surface);
+            border: 4px solid var(--primary-light);
+            z-index: 2;
+        }
+
+        .timeline-item.current .timeline-dot {
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-content {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-institution {
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-details {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            list-style-type: square;
+            padding-left: 1.25rem;
+        }
+
+        .timeline-details li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- CONTACTO --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.75rem;
+            border-radius: 8px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .social-item:hover {
+            color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Formulario */
+        .contact-form {
+            background-color: var(--surface);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            background-color: #fafafa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            display: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .form-status.success {
+            display: block;
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .hero-text h1 { font-size: 2.75rem; }
+            .hero-description { margin: 0 auto 2rem; }
+            .hero-avatar-container { order: -1; }
+            .avatar-placeholder { width: 260px; height: 260px; font-size: 4.5rem; }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--surface);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                gap: 2.5rem;
+                transition: var(--transition);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .timeline::before { left: 11px; }
+            .timeline-item { padding-left: 40px; }
+            .timeline-dot { left: 0px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#inicio" class="logo">
+                <strong>DV</strong> <!-- Iniciales actualizadas: Daniel Valencia -->
+            </a>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="nav-links">
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#habilidades" class="nav-link">Habilidades</a></li>
+                <li><a href="#formacion" class="nav-link">Formación</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1>Daniel Valencia</h1>
+                <div class="hero-subtitle">Asistente Administrativo</div>
+                <p class="hero-description">
+                    Estudiante de segundo semestre enfocado en la optimización de procesos de oficina, gestión eficiente de documentos y soporte integral a equipos directivos con una visión moderna y tecnológica.
+                </p>
+                <a href="#contacto" class="btn">Contactar Conmigo</a>
+            </div>
+            <div class="hero-avatar-container">
+                <div class="avatar-placeholder" title="Daniel Valencia">DV</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Mis Habilidades</h2>
+            <div class="skills-grid">
+                
+                <!-- Habilidad 1 -->
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3>Microsoft Office</h3>
+                    <p>Gestión avanzada de bases de datos en Excel, reportes ejecutivos en Word y presentaciones corporativas dinámicas.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-progress="85%"></div>
+                    </div>
+                    <div class="skill-percentage" style="margin-top: 0.5rem;">
+                        <span>Nivel Avanzado</span>
+                        <span>85%</span>
+                    </div>
+                </div>
+
+                <!-- Habilidad 2 -->
+                <div class="skill-card">
+                    <div class="skill-icon">📂</div>
+                    <h3>Gestión Documental</h3>
+                    <p>Organización, codificación, archivo físico y digital, asegurando un acceso ágil y confidencial a la información institucional.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-progress="90%"></div>
+                    </div>
+                    <div class="skill-percentage" style="margin-top: 0.5rem;">
+                        <span>Nivel Excelente</span>
+                        <span>90%</span>
+                    </div>
+                </div>
+
+                <!-- Habilidad 3 -->
+                <div class="skill-card">
+                    <div class="skill-icon">🤝</div>
+                    <h3>Atención al Cliente</h3>
+                    <p>Comunicación asertiva, resolución de consultas y gestión de flujos de usuarios bajo altos estándares de calidad y calidez.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-progress="80%"></div>
+                    </div>
+                    <div class="skill-percentage" style="margin-top: 0.5rem;">
+                        <span>Nivel Profesional</span>
+                        <span>80%</span>
+                    </div>
+                </div>
+
+                <!-- Habilidad 4 -->
+                <div class="skill-card">
+                    <div class="skill-icon">⏱️</div>
+                    <h3>Planificación y Organización</h3>
+                    <p>Manejo de agendas corporativas, priorización de flujos de trabajo de oficina y coordinación logística de reuniones.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-progress="75%"></div>
+                    </div>
+                    <div class="skill-percentage" style="margin-top: 0.5rem;">
+                        <span>Nivel Competente</span>
+                        <span>75%</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMACIÓN ACADÉMICA -->
+    <section id="formacion" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Formación Académica</h2>
+            <div class="timeline">
+                
+                <!-- Item 1 (Actual) -->
+                <div class="timeline-item current">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025 - Presente</span>
+                        <h3>Técnico Superior en Asistente Administrativo</h3>
+                        <div class="timeline-institution">Instituto de Formación Técnica y Profesional</div>
+                        <ul class="timeline-details">
+                            <li><strong>Semestre actual:</strong> Segundo semestre académico.</li>
+                            <li>Enfoque en Gestión de Procesos Orgánicos de Oficina, Contabilidad Básica y Normativa Laboral.</li>
+                            <li>Primer puesto en el simposio interno de metodologías ágiles aplicadas a oficinas virtuales.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Enero - Abril 2025</span>
+                        <h3>Curso de Herramientas Digitales de Productividad</h3>
+                        <div class="timeline-institution">Centro de Formación Continua</div>
+                        <ul class="timeline-details">
+                            <li>Profundización en ecosistemas de Google Workspace y Microsoft 365.</li>
+                            <li>Especialización en automatizaciones sencillas de flujos de correo y almacenamiento en la nube (Cloud Management).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Graduación: 2024</span>
+                        <h3>Bachillerato Técnico Comercial</h3>
+                        <div class="timeline-institution">Colegio Técnico Metropolitano</div>
+                        <ul class="timeline-details">
+                            <li>Formación integral en fundamentos de administración, archivo tradicional y ética profesional.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-grid">
+                
+                <!-- Info de Contacto -->
+                <div class="contact-info">
+                    <h3>¿Iniciamos un proyecto?</h3>
+                    <p>Estoy disponible para realizar pasantías, prácticas profesionales o colaboraciones a tiempo parcial. Si buscas optimizar el rendimiento administrativo de tu empresa, escríbeme.</p>
+                    
+                    <div class="social-links">
+                        <a href="https://linkedin.com" target="_blank" class="social-item">
+                            <span class="social-icon">In</span>
+                            <span>linkedin.com/in/daniel-valencia</span>
+                        </a>
+                        <a href="mailto:daniel.valencia@email.com" class="social-item">
+                            <span class="social-icon">@</span>
+                            <span>daniel.valencia@email.com</span>
+                        </a>
+                        <a href="https://wa.me/123456789" target="_blank" class="social-item">
+                            <span class="social-icon">Wp</span>
+                            <span>+1 234 567 890</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Formulario -->
+                <div>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" class="form-control" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico</label>
+                            <input type="email" id="correo" class="form-control" placeholder="ejemplo@correo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" class="form-control" placeholder="¿En qué puedo ayudarte?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
+                        
+                        <div id="formStatus" class="form-status"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Daniel Valencia. Todos los derechos reservados.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #64748b;">Diseño profesional de perfil administrativo digital.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIC & INTERACTION (JAVASCRIPT) -->
+    <script>
+        // 1. Menú Hamburguesa para Móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú móvil al hacer click en un enlace
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 2. Animaciones al Scroll (Intersection Observer)
+        const reveals = document.querySelectorAll('.reveal');
+        const progressBars = document.querySelectorAll('.progress-bar');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.15, // Se activa cuando el 15% de la sección es visible
+            rootMargin: "0px"
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Si la sección es la de habilidades, animar las barras de progreso
+                    if (entry.target.id === 'habilidades') {
+                        progressBars.forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-progress');
+                        });
+                    }
+                    observer.unobserve(entry.target); // Dejar de observar una vez animado
+                }
+            });
+        }, observerOptions);
+
+        reveals.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // 3. Highlight Activo en Menú de Navegación según el Scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 4. Validación y Envío Simulado del Formulario de Contacto
+        const form = document.getElementById('contactForm');
+        const statusDiv = document.getElementById('formStatus');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulación de envío exitoso
+            statusDiv.textContent = "¡Muchas gracias! Tu mensaje ha sido enviado con éxito. Me contactaré contigo pronto.";
+            statusDiv.className = "form-status success";
+            
+            // Resetear el formulario
+            form.reset();
+
+            // Desaparecer el mensaje tras 5 segundos
+            setTimeout(() => {
+                statusDiv.className = "form-status";
+                statusDiv.textContent = "";
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
